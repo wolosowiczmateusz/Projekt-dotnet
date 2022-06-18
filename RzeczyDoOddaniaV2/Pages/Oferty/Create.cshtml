@@ -1,0 +1,94 @@
+﻿@page
+@model RzeczyDoOddaniaV2.Pages.Oferty.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<head>
+    <style>
+    .form-control{
+        width:auto;
+    }
+    .nrdomu{
+        width:100px;
+    }
+    </style>
+</head>
+
+<h1>Stwórz ofertę</h1>
+<br>
+
+<div class="row">
+    @ViewData["Message"]
+        <form method="post" enctype="multipart/form-data">
+            <h3>Podaj szczegóły oferty</h3>
+            <div class="form-group col-md-3">
+                <label asp-for="Oferta.Nazwa" class="control-label"></label>
+                <input asp-for="Oferta.Nazwa" class="form-control" />
+                <span asp-validation-for="Oferta.Nazwa" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="Oferta.Opis" class="control-label"></label>
+                <textarea asp-for="Oferta.Opis" class="form-control"></textarea>
+                <span asp-validation-for="Oferta.Opis" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                Data wygaśnięcia oferty(opcjonalne)
+                <input asp-for="Oferta.DataWygasniecia" class="form-control" />
+                <span asp-validation-for="Oferta.DataWygasniecia" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Oferta.Zdjecia[0].ZdjeciePath" class="col-sm-2 col-form-label">Zdjęcia</label>
+                <input asp-for="Images" multiple>
+                <span asp-validation-for="Oferta.Zdjecia[0].ZdjeciePath" class="text-danger"></span>
+            </div>
+            <br>
+            <h5>Wybierz kategorie oferty</h5>
+            <div class="form-group">
+                @{for (int i = 0; i < Model.ListaKategorii.Count; i++){
+                       <input asp-for="@Model.ListaKategorii[i].Value" type="hidden" />
+                        {
+                            <input asp-for="@Model.ListaKategorii[i].Selected" /> @Model.ListaKategorii[i].Text
+                        }
+                        <br/>
+                    }
+                 }  
+            </div>
+            <br>
+
+            <h3>Podaj adres odbioru</h3>
+
+            <div class="form-group">
+                <label asp-for="Adres.Miasto" class="control-label"></label>
+                <input asp-for="Adres.Miasto" class="form-control" />
+                <span asp-validation-for="Adres.Miasto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adres.Kod_Pocztowy" class="control-label"></label>
+                <input asp-for="Adres.Kod_Pocztowy" class="form-control" />
+                <span asp-validation-for="Adres.Kod_Pocztowy" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Adres.Ulica" class="control-label"></label>
+                <input asp-for="Adres.Ulica" class="form-control" />
+                <span asp-validation-for="Adres.Ulica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adres.Nr_domu" class="control-label"></label>
+                <input asp-for="Adres.Nr_domu" class="form-control nrdomu" />
+                <span asp-validation-for="Adres.Nr_domu" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="submit" value="Stwórz ofertę" class="btn btn-primary btn-lg" />
+            </div>
+        </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

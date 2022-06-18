@@ -1,0 +1,272 @@
+﻿@page
+@model RzeczyDoOddaniaV2.Pages.Oferty.DetailsModel
+
+@{
+    ViewData["Title"] = "Szczegóły";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+    bool czyDodanyKom = false;
+    bool czyDodanaOcena = false;
+}
+
+<head>
+    <style>
+    .realizacja{
+        color:red;
+    }
+    img{
+        height: 250px;
+        width: auto;
+        max-width:650px;
+    }
+    .obrazek{
+        display:inline-block;
+        width:auto;
+        margin:15px;    
+    }
+    .powrot{
+        text-decoration:none;
+        font-size: 18px;
+        color:black;
+        float:right;
+    }
+    </style>
+</head>
+
+
+
+
+<div>
+        <h1>Szczegóły oferty <a class="powrot" asp-page="./Index">Powrót do listy ofert</a></h1>
+        <br>
+</div>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Oferta.Nazwa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Oferta.Nazwa)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Oferta.Opis)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Oferta.Opis)
+        </dd>
+
+        @if (Model.Oferta.DataWygasniecia != null)
+        {
+        <dt class="col-sm-2">
+            Data wygaśnięcia
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Oferta.DataWygasniecia)
+        </dd>    
+        }
+
+        <dt class="col-sm-2">
+            Adres
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Adres.Miasto)<br>
+            @Html.DisplayFor(model => model.Adres.Kod_Pocztowy)<br>
+            @Html.DisplayFor(model => model.Adres.Ulica)<br>
+            @Html.DisplayFor(model => model.Adres.Nr_domu)<br>
+        </dd>
+
+
+        <dt class="col-sm-2">
+            Rezerwacja
+        </dt>
+            @if(Model.Oferta.Zarezerwowana == null)
+            {
+                <dd class="col-sm-10">
+                    Nie zarezerwowane
+                </dd>
+            }
+            else
+            {        
+                <dd class="col-sm-10">
+                    Zarezerwowana przez @Html.DisplayFor(model => model.Oferta.Zarezerwowana)
+                </dd> 
+            }
+
+
+       <dt class="col-sm-2">
+            Kategorie:
+       </dt>
+       <dd class="col-sm-10">
+            @{
+                string skills = "";
+                skills = string.Join(", ", Model.Oferta.OfertyKategorie.Select(m => m.Kategorie.NazwaKategorii));
+                <span>@skills</span>
+            }
+        </dd>
+
+        @if (Model.Oferta.Realizacja != null)
+        {
+         <dt class="col-sm-2">
+            <p class="realizacja">Oferta Zrealizowana</p>
+        </dt>
+        <dd class="col-sm-10"></dd>
+        }
+
+
+    </dl>
+
+
+</div>
+<div class="row">
+@foreach(var zdjecie in Model.ListaZdjec)
+{
+ 
+    var photoPath = "~/Images/" + (zdjecie.ZdjeciePath ?? "noimage.jpg");
+    <div class="obrazek">
+    <img src="@photoPath" asp-append-version="true" />
+    </div>
+}
+</div>
+
+
+@foreach(var kom in Model.ListaKomentarzy)
+{
+    if(kom.IdOferty == Model.Oferta.Id)
+    {
+        czyDodanyKom = true;
+    }
+}
+@foreach(var oce in Model.ListaOcen)
+{
+    if(oce.IdOferty == Model.Oferta.Id)
+    {
+        czyDodanaOcena = true;
+    }
+}
+
+
+@if(Model.Oferta.Realizacja == true && Model.Oferta.Zarezerwowana==@User.Identity.Name)
+{
+    if(czyDodanyKom == false)
+    {
+        if(czyDodanaOcena == false)
+        {
+            <form method="post" asp-page-handler="komentarz">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Oferta.Id" />
+                <input type="hidden" asp-for="Oferta.Nazwa" />
+                <input type="hidden" asp-for="Oferta.Opis" />
+                <input type="hidden" asp-for="Oferta.Wlasciciel" />
+                <input type="hidden" asp-for="Oferta.DataWygasniecia" />
+                <input type="hidden" asp-for="Oferta.Zarezerwowana" />
+                <input type="hidden" asp-for="Oferta.Realizacja" />
+                <p>Daj komentarz:</p>
+                <input asp-for="Komentarz.Tresc" class="form-control" />
+                <span asp-validation-for="Komentarz.Tresc" class="text-danger"></span>
+                <input type="submit" value="Dodaj komentarz" class="btn btn-primary" />
+            </form>
+            <form method="post" asp-page-handler="ocena">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Oferta.Id" />
+                <input type="hidden" asp-for="Oferta.Nazwa" />
+                <input type="hidden" asp-for="Oferta.Opis" />
+                <input type="hidden" asp-for="Oferta.Wlasciciel" />
+                <input type="hidden" asp-for="Oferta.DataWygasniecia" />
+                <input type="hidden" asp-for="Oferta.Zarezerwowana" />
+                <input type="hidden" asp-for="Oferta.Realizacja" />
+                <p>Daj ocenę:</p>
+                <input asp-for="Ocena.ocena" class="form-control" />
+                <span asp-validation-for="Ocena.ocena" class="text-danger"></span>
+                <input type="submit" value="Daj ocenę" class="btn btn-primary" />
+            </form>
+        }
+        if(czyDodanaOcena == true)
+        {
+            <form method="post" asp-page-handler="komentarz">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Oferta.Id" />
+                <input type="hidden" asp-for="Oferta.Nazwa" />
+                <input type="hidden" asp-for="Oferta.Opis" />
+                <input type="hidden" asp-for="Oferta.Wlasciciel" />
+                <input type="hidden" asp-for="Oferta.DataWygasniecia" />
+                <input type="hidden" asp-for="Oferta.Zarezerwowana" />
+                <input type="hidden" asp-for="Oferta.Realizacja" />
+                <p>Daj komentarz:</p>
+                <input asp-for="Komentarz.Tresc" class="form-control" />
+                <span asp-validation-for="Komentarz.Tresc" class="text-danger"></span>
+                <input type="submit" value="Dodaj komentarz" class="btn btn-primary" />
+            </form>
+        }
+    }
+    if(czyDodanyKom == true){
+        if(czyDodanaOcena == false)
+        {
+            <form method="post" asp-page-handler="ocena">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Oferta.Id" />
+                <input type="hidden" asp-for="Oferta.Nazwa" />
+                <input type="hidden" asp-for="Oferta.Opis" />
+                <input type="hidden" asp-for="Oferta.Wlasciciel" />
+                <input type="hidden" asp-for="Oferta.DataWygasniecia" />
+                <input type="hidden" asp-for="Oferta.Zarezerwowana" />
+                <input type="hidden" asp-for="Oferta.Realizacja" />
+                <p>Daj ocenę:</p>
+                <input asp-for="Ocena.ocena" class="form-control" />
+                <span asp-validation-for="Ocena.ocena" class="text-danger"></span>
+                <input type="submit" value="Daj ocenę" class="btn btn-primary" />
+            </form>
+        }
+        if(czyDodanaOcena == true)
+        {
+        }
+    }
+}
+else if(Model.Oferta.Realizacja == true && Model.Oferta.Zarezerwowana!=@User.Identity.Name)
+{
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Oferta.Id" />
+    <input type="hidden" asp-for="Oferta.Nazwa" />
+    <input type="hidden" asp-for="Oferta.Opis" />
+    <input type="hidden" asp-for="Oferta.Wlasciciel" />
+    <input type="hidden" asp-for="Oferta.DataWygasniecia" />
+    <input type="hidden" asp-for="Oferta.Zarezerwowana" />
+    <input type="hidden" asp-for="Oferta.Realizacja" />
+    </form>
+}
+else
+{
+    if (User.Identity.IsAuthenticated)
+    {
+    <form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Oferta.Id" />
+    <input type="hidden" asp-for="Oferta.Nazwa" />
+    <input type="hidden" asp-for="Oferta.Opis" />
+    <input type="hidden" asp-for="Oferta.Wlasciciel" />
+    <input type="hidden" asp-for="Oferta.DataWygasniecia" />
+    <input type="hidden" asp-for="Oferta.Zarezerwowana" />
+    <input type="hidden" asp-for="Oferta.Realizacja" />
+        <div class="form-group">
+            <input type="submit" value="Zgłoś zainteresowanie" class="btn btn-primary" />
+        </div>
+    </form>
+    }
+    else
+    {
+    <form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Oferta.Id" />
+    <input type="hidden" asp-for="Oferta.Nazwa" />
+    <input type="hidden" asp-for="Oferta.Opis" />
+    <input type="hidden" asp-for="Oferta.Wlasciciel" />
+    <input type="hidden" asp-for="Oferta.DataWygasniecia" />
+    <input type="hidden" asp-for="Oferta.Zarezerwowana" />
+    <input type="hidden" asp-for="Oferta.Realizacja" />
+    </form>
+    }
+
+}
+
+

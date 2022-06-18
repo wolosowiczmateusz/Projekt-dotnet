@@ -1,0 +1,70 @@
+﻿@page
+@model RzeczyDoOddaniaV2.Pages.Oferty.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Oferta</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Oferta.Id" />
+            <div class="form-group">
+                <label asp-for="Oferta.Nazwa" class="control-label"></label>
+                <input asp-for="Oferta.Nazwa" class="form-control" />
+                <span asp-validation-for="Oferta.Nazwa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Oferta.Opis" class="control-label"></label>
+                <input asp-for="Oferta.Opis" class="form-control" />
+                <span asp-validation-for="Oferta.Opis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Oferta.DataWygasniecia" class="control-label"></label>
+                <input asp-for="Oferta.DataWygasniecia" class="form-control" />
+                <span asp-validation-for="Oferta.DataWygasniecia" class="text-danger"></span>
+            </div>
+           <div class="form-group">
+                <label asp-for="Adres.Miasto" class="control-label"></label>
+                <input asp-for="Adres.Miasto" class="form-control" />
+                <span asp-validation-for="Adres.Miasto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adres.Ulica" class="control-label"></label>
+                <input asp-for="Adres.Ulica" class="form-control" />
+                <span asp-validation-for="Adres.Ulica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adres.Kod_Pocztowy" class="control-label"></label>
+                <input asp-for="Adres.Kod_Pocztowy" class="form-control" />
+                <span asp-validation-for="Adres.Kod_Pocztowy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adres.Nr_domu" class="control-label"></label>
+                <input asp-for="Adres.Nr_domu" class="form-control" />
+                <span asp-validation-for="Adres.Nr_domu" class="text-danger"></span>
+            </div>
+            @Html.DisplayFor(model => model.Adres.Miasto)
+            @Html.DisplayFor(model => model.Oferta.DataWygasniecia)
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Oferta.Zarezerwowana" />
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="/Oferty/MojeOferty">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

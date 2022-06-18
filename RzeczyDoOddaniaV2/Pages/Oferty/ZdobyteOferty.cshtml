@@ -1,0 +1,147 @@
+﻿@page
+@model RzeczyDoOddaniaV2.Pages.Oferty.ZdobyteOfertyModel
+
+@{
+    ViewData["Title"] = "Oferty";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<head>
+
+<style>
+    table{
+        table-layout: fixed;
+    }
+    td{
+        word-wrap:break-word;
+        text-align:center;
+    }
+    th{
+        text-align:center;
+    }
+    .card-img-top{
+        height:30%;
+        max-height:200px;
+        display: block;
+        margin: auto;
+    }
+    .wazne{
+        color: red;
+    }
+    h1{
+        text-align:center;
+        font-size: 50px;
+    }
+    a{
+        text-decoration:none;
+        color:black;
+    }
+    li{
+        text-align:center;
+    }
+    .dropdown-menu{
+        width:200px;
+    }
+    .dropdown-toggle{
+        color:white;
+        background-color:#0d6efd;
+    }
+    .dropdown-toggle:hover{
+        color:white;
+        background-color:#0d6efd;
+    }
+    .show{
+        background-color:#e6ffff;
+    }
+    .back{
+        font-size:17px;
+    }
+    .btn-secondary{
+    }
+    .szczegoly{
+        font-weight:666;
+        font-size:24px;
+    }
+    </style>
+</head>
+
+
+@using Models;
+<h1>Zdobyte Oferty</h1>
+
+
+<br>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nazwa oferty
+            </th>
+            <th>
+                Opis oferty
+            </th>
+            <th>
+                Realizacja/Rezerwacja
+            </th>
+            <th>
+                    &nbsp &nbsp Zdjęcie poglądowe
+            </th>
+            <th>
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Oferty) {
+        <tr>
+            <td>
+                <h5>@Html.DisplayFor(modelItem => item.Nazwa)</h5>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Opis)
+            </td>
+            @if(item.Zarezerwowana == null)
+            {
+                <td>
+                </td>
+            }
+            else
+            {
+                @if(item.Realizacja == true)
+                {
+                    <td class = "wazne"><b><b>ZREALIZOWANE</b></b><br>
+                    <b><h5>Zarezerwowane dla użytkownika @item.Zarezerwowana</h5></b>
+                        </td>
+                    }
+                    else
+                    {
+                    <td>
+                    <b>Zarezerwowana dla @item.Zarezerwowana</b>
+                    </td>
+                    }
+
+            }
+                <td>
+                @foreach(var zdjecie in Model.Zdjecia)
+                {
+                    var photoPath = "~/Images/" + (zdjecie.ZdjeciePath ?? "noimage.jpg");
+                    bool firstZdj = false;
+                        if(zdjecie.OfertaId == item.Id && firstZdj == false)
+                        {
+                            <div class="card">
+                                <img class="card-img-top" src="@photoPath"
+                                 asp-append-version="true" />
+                            </div>
+                            firstZdj = true;
+                            break;
+                        }
+                }
+            </td>
+            <td>
+                <a class="szczegoly" asp-page="./Details" asp-route-id="@item.Id">Szczegóły</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

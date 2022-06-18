@@ -1,0 +1,42 @@
+﻿@page
+@model RzeczyDoOddaniaV2.Pages.Uzytkownik.KomentarzeModel
+@{
+    ViewData["Title"] = "Komentarze";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<head>
+    <style type="text/css">
+    .h1{
+        padding: 50px;
+    }
+    .list-group-item{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align:left;
+    }
+    
+    
+    </style>
+
+</head>
+
+<body>
+    <h1>Twoje Komentarze</h1>
+    <ul class="list-group list-group-flush">
+        @foreach(var kom in Model.Lista_Komentarzy)
+        {
+            <li class="list-group-item">@kom.Tresc</li>
+        }
+    </ul>
+
+    <h1>Twoje Oceny</h1>
+    <ul class="list-group list-group-flush">
+        @foreach(var ocena in Model.Lista_Ocen)
+        {
+            <li class="list-group-item">@ocena.ocena</li>
+        }
+    </ul>
+</body>
+

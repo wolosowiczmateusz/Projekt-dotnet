@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using RzeczyDoOddaniaV2.Models;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<head>
+    <style>
+    .kateg{
+        width:200px;
+    }
+    .dropdown-toggle{
+        color:white;
+        background-color:#0d6efd;
+    }
+    .dropdown-toggle:hover{
+        color:white;
+        background-color:#0d6efd;
+    }
+    .show{
+        background-color:#e6ffff;
+    }
+    a{
+        text-decoration:none;
+        color:black;
+    }
+    li{
+        text-align:center;
+    }
+    </style>
+</head>
+
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle aaa" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+    Witaj @User.Identity.Name
+  </button>
+  <ul class="dropdown-menu katego" aria-labelledby="dropdownMenuButton">
+    <li><a asp-area="Identity" asp-page="/Account/Manage/Index"> Profil</a></li>
+    <li><a asp-page="/Oferty/Create"> Zamieść Ofertę</a></li>
+    <li><a asp-page="/Oferty/MojeOferty"> Moje Oferty</a></li>
+    <li><a asp-page="/Oferty/ZdobyteOferty"> Zdobyte Oferty</a></li>
+    <li><a asp-page="/Uzytkownik/Komentarze"> Moje komentarze i opinie</a></li>
+    <li><a asp-area="Identity" asp-page="/Account/Logout"> Wyloguj się</a></li>
+
+  </ul>
+</div>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Zarejestruj się</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Zaloguj się</a>
+    </li>
+}
+</ul>

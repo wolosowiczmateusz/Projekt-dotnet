@@ -1,0 +1,107 @@
+﻿@page
+@model RzeczyDoOddaniaV2.Pages.Oferty.MojeOfertySzczegolyModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+    string skills = "";
+}
+
+
+
+<head>
+    <style>
+        .powrot{
+        text-decoration:none;
+        font-size: 18px;
+        color:black;
+        float:right;
+    }
+    </style>
+</head>
+
+
+<div>
+        <h1>Szczegóły oferty <a class="powrot" asp-page="./Index">Powrót do listy ofert</a></h1>
+        <br>
+</div>
+
+<div>
+    <h4>Oferta</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Oferta.Nazwa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Oferta.Nazwa)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Oferta.Opis)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Oferta.Opis)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Oferta.Zarezerwowana)
+        </dt>
+
+        @if(Model.Oferta.Zarezerwowana == null)
+            {
+                <dd class="col-sm-10">
+                    Nie zarezerwowane
+                </dd>
+            }
+            else
+            {        
+                <dd class="col-sm-10">
+                    Zarezerwowana przez @Html.DisplayFor(model => model.Oferta.Zarezerwowana)
+                </dd>  
+            }
+
+        <dt class="col-sm-2">
+            Zainteresowani:
+        </dt>
+
+        @foreach(var osoba in Model.Zainteresowani)
+        {
+            skills = skills + " " + osoba.Nazwa_Zainteresowanego;
+        }
+        <dd class="col-sm-10">
+           <span>@skills</span>
+        </dd>
+
+    <form method="post" asp-page-handler="OnPostAsync">
+            <div class="form-group">
+            <input type="submit" value="Zarezerwuj dla" class="btn btn-primary" />
+            <input type="hidden" asp-for="Oferta.Id" />
+            <input type="hidden" asp-for="Oferta.Nazwa" />
+            <input type="hidden" asp-for="Oferta.Opis" />
+            <input type="hidden" asp-for="Oferta.Wlasciciel" />
+            <input type="hidden" asp-for="Oferta.DataWygasniecia" />
+            <input type="hidden" asp-for="Oferta.Zarezerwowana" />
+            <input type="hidden" asp-for="Oferta.Realizacja" />
+            <input asp-for="Zainteresowany.Nazwa_Zainteresowanego" class="form-control" />
+            <span asp-validation-for="Zainteresowany.Nazwa_Zainteresowanego" class="text-danger"></span>
+            <br />
+
+            </div>
+    </form>
+
+    <form method="post" asp-page-handler="realizacja">
+  
+            <div class="form-group">
+            <input type="submit" value="Zrealizuj ofertę" class="btn btn-primary" />
+            <input type="hidden" asp-for="Oferta.Id" />
+            <input type="hidden" asp-for="Oferta.Nazwa" />
+            <input type="hidden" asp-for="Oferta.Opis" />
+            <input type="hidden" asp-for="Oferta.Wlasciciel" />
+            <input type="hidden" asp-for="Oferta.DataWygasniecia" />
+            <input type="hidden" asp-for="Oferta.Zarezerwowana" />
+            <input type="hidden" asp-for="Oferta.Realizacja" />
+            <input type="hidden" asp-for="Oferta.Zainteresowani" />
+            </div>
+        </form>
+    </dl>
+</div>
+
