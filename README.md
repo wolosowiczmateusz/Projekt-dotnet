@@ -26,7 +26,9 @@ wtedy nic nie musimy robić
 *oczywiście chodzi o ...\Projekt-dotnet-master\Projekt-dotnet-master\
 
 
-Następnym krokiem jest wpisanie komendy: dotnet user-secrets set SendGridKey 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
+Następnym krokiem jest wpisanie komendy: 
+dotnet user-secrets set SendGridKey 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
+
 Powinien wyskoczyć taki komunikat:
 ![obraz](https://user-images.githubusercontent.com/101111673/174493270-5826bf66-e1e2-46ea-a393-0ecdc8f39ad1.png)
 
