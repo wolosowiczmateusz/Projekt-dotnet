@@ -4,7 +4,7 @@
 Program można uruchamiać poprzez plik RzeczyDoOddaniaV2.sln lub plik RzeczyDoOddaniaV2.csproj w Folderze RzeczyDoOddaniaV2 (najlepiej w Visual Studio 22, ponieważ na nim robiłem testy i nie wiem czy starsze wersje Visuala nie spowodują problemów)
 
 Po uruchomieniu aplikacji należy w Packet Manager Console wpisać:
-Update-Database -Context DataContext, a następnie
+Update-Database -Context DataContext, a następnie<br />
 Update-Database -Context ApplicationDbContext
 
 Następnie należy włączyć PowerShella:
