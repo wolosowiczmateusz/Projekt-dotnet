@@ -35,14 +35,14 @@ Po powyższych krokach program powinien być już gotowy do działania.
 
 Użyte biblioteki:
 
-Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore
-Microsoft.AspNetCore.Identity.EntityFrameworkCore
-Microsoft.AspNetCore.Identity.UI
-Microsoft.EntityFrameworkCore.SqlServer
-Microsoft.EntityFrameworkCore.Tools
-Microsoft.VisualStudio.Web.CodeGeneration.Design
-SendGrid
-Swashbuckle.AspNetCore
+Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore <br />
+Microsoft.AspNetCore.Identity.EntityFrameworkCore <br />
+Microsoft.AspNetCore.Identity.UI <br />
+Microsoft.EntityFrameworkCore.SqlServer <br />
+Microsoft.EntityFrameworkCore.Tools <br />
+Microsoft.VisualStudio.Web.CodeGeneration.Design <br />
+SendGrid <br />
+Swashbuckle.AspNetCore <br />
 
 
 
