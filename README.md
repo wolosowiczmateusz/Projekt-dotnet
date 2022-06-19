@@ -21,7 +21,7 @@ A druga możliwość gdy PowerShell otworzy się w takiej lokacji*:
 ![obraz](https://user-images.githubusercontent.com/101111673/174493204-fb3174b0-2e19-4d89-9bfd-793a3695e618.png)
 wtedy nic nie musimy robić
 
-* oczywiście chodzi o ...\Projekt-dotnet-master\Projekt-dotnet-master\
+*oczywiście chodzi o ...\Projekt-dotnet-master\Projekt-dotnet-master\
 
 
 Następnym krokiem jest wpisanie komendy: dotnet user-secrets set SendGridKey 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
