@@ -10,6 +10,7 @@ Update-Database -Context ApplicationDbContext
 Następnie należy włączyć PowerShella:
 
 ![obraz](https://user-images.githubusercontent.com/101111673/174493089-2413affe-5375-412d-b393-cbcac9bd2438.png)
+
 i PowerShell może się odpalić w dwóch różnych katalogach
 
 Jeżeli PowerShell otworzy się w tej lokacji*:
