@@ -32,9 +32,21 @@ Jeżeli jednak wyskoczy jakiś błąd to możliwe, że trzeba będzie wpisać ko
 
 Po powyższych krokach program powinien być już gotowy do działania.
 
-Reszta jest opisana w Pliku pdf
+
+Użyte biblioteki:
+
+Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore
+Microsoft.AspNetCore.Identity.EntityFrameworkCore
+Microsoft.AspNetCore.Identity.UI
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Tools
+Microsoft.VisualStudio.Web.CodeGeneration.Design
+SendGrid
+Swashbuckle.AspNetCore
 
 
+
+Reszta jest opisana w pliku pdf
 
 
 
